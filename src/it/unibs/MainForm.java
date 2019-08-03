@@ -37,17 +37,6 @@ public class MainForm implements ActionListener {
         startButton.addActionListener(this);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
-            case START_COMMAND:
-                execute();
-                break;
-            default:
-                break;
-        }
-    }
-
     private void execute(){
         boolean command;
         if(btnEncode.isSelected()) command = Controller.ENCODE;
@@ -55,7 +44,18 @@ public class MainForm implements ActionListener {
         controller.execute(txtSource.getText(), command);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (START_COMMAND.equals(e.getActionCommand())) {
+            execute();
+        }
+    }
+
     public void showString(String text){
         lblResult.setText(text);
+    }
+
+    public void setProgress(int percent) {
+        progressBar1.setValue(percent);
     }
 }

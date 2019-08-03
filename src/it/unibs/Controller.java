@@ -1,28 +1,19 @@
 package it.unibs;
 
-import javax.naming.ldap.Control;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class Controller implements Runnable{
+public class Controller implements Runnable, ProgressListener{
     public static final boolean ENCODE = true;
     public static final boolean DECODE = false;
+
     private static final String NOT_INTEGER_ERROR = "Uno o piu' numeri inseriti non sono interi";
+
     private LZCompress compressLZ;
 
     private MainForm form;
 
     public Controller(){
         createLZCompress();
-    }
-
-    public void execute(String text, boolean command) {
-        if (command == ENCODE) {
-            encode(text);
-        } else {
-            decode(text);
-        }
     }
 
     private void encode(String text) {
@@ -35,7 +26,7 @@ public class Controller implements Runnable{
         if(toShow != null) {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < toShow.size() - 1; i++)
-                builder.append(toShow.get(i) + ",");
+                builder.append(toShow.get(i)).append(",");
             builder.append(toShow.get(toShow.size() - 1));
             form.showString(builder.toString());
         }
@@ -43,7 +34,7 @@ public class Controller implements Runnable{
 
     private void decode(String text) {
         ArrayList<Integer> input = new ArrayList<>();
-        List<String> splitted = Arrays.asList(text.split(","));
+        String[] splitted = text.split(",");
         boolean failed = false;
         try {
             for (String s : splitted)
@@ -56,11 +47,6 @@ public class Controller implements Runnable{
         if(!failed) form.showString(compressLZ.decompress(input));
     }
 
-    @Override
-    public void run() {
-        form = new MainForm(this);
-    }
-
     private void createLZCompress() {
         ArrayList<String> alphabet = new ArrayList<>();
         alphabet.add("a");
@@ -68,5 +54,24 @@ public class Controller implements Runnable{
         alphabet.add("c");
 
         compressLZ = new LZCompress(alphabet);
+        compressLZ.addProgressListener(this);
+    }
+
+    public void execute(String text, boolean command) {
+        if (command == ENCODE) {
+            encode(text);
+        } else {
+            decode(text);
+        }
+    }
+
+    @Override
+    public void run() {
+        form = new MainForm(this);
+    }
+
+    @Override
+    public void onProgressChanged(int percent) {
+        form.setProgress(percent);
     }
 }
