@@ -17,18 +17,14 @@ public class Controller implements Runnable, ProgressListener{
     }
 
     private void encode(String text) {
-        ArrayList<String> toShow = null;
+        ArrayList<ArrayList<String>> toShow = null;
         try {
             toShow = compressLZ.compress(text);
         } catch (Exception e) {
             form.showString(e.getMessage());
         }
         if(toShow != null) {
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < toShow.size() - 1; i++)
-                builder.append(toShow.get(i)).append(",");
-            builder.append(toShow.get(toShow.size() - 1));
-            form.showString(builder.toString());
+            form.showResult(toShow.get(0), toShow.get(1));
         }
     }
 
@@ -44,7 +40,14 @@ public class Controller implements Runnable, ProgressListener{
             form.showString(NOT_INTEGER_ERROR);
             failed = true;
         }
-        if(!failed) form.showString(compressLZ.decompress(input));
+        if(!failed) {
+            try {
+                ArrayList<ArrayList<String>> result = compressLZ.decompress(input);
+                form.showResult(result.get(0), result.get(1));
+            } catch (Exception e) {
+                form.showString(e.getMessage());
+            }
+        }
     }
 
     private void createLZCompress() {
