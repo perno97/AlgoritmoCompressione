@@ -12,7 +12,7 @@ public class LZCompress implements ICompress {
 
     public LZCompress(ArrayList<String> alphabet){
         this.alphabet = alphabet;
-        progressListeners = new ArrayList<>();
+        this.progressListeners = new ArrayList<>();
     }
 
     private int findInCodebook(ArrayList<String> codebook, String s) {
