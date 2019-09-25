@@ -10,7 +10,7 @@ public class LZCompress implements ICompress {
     private final ArrayList<String> alphabet;
     private ArrayList<ProgressListener> progressListeners;
 
-    public LZCompress(ArrayList<String> alphabet){
+    LZCompress(ArrayList<String> alphabet){
         this.alphabet = alphabet;
         this.progressListeners = new ArrayList<>();
     }
@@ -27,7 +27,7 @@ public class LZCompress implements ICompress {
             p.onProgressChanged(i);
     }
 
-    public void addProgressListener(ProgressListener listener){
+    void addProgressListener(ProgressListener listener){
         this.progressListeners.add(listener);
     }
 

@@ -22,7 +22,7 @@ public class MainForm implements ActionListener {
 
     private Controller controller;
 
-    public MainForm(Controller controller){
+    MainForm(Controller controller){
         this.controller=controller;
         this.frame = new JFrame();
         initiate();
@@ -53,24 +53,24 @@ public class MainForm implements ActionListener {
         }
     }
 
-    public void showResult(ArrayList<String> output, ArrayList<String> codebook){
+    void showResult(ArrayList<String> output, ArrayList<String> codebook){
         StringBuilder builderOutput = new StringBuilder(), builderCodebook = new StringBuilder();
         builderCodebook.append("Codebook: [");
         for (int i = 0; i < output.size() - 1; i++)
             builderOutput.append(output.get(i)).append(",");
         for (int i = 0; i < codebook.size() -1; i++)
             builderCodebook.append(codebook.get(i)).append(",");
-        builderCodebook.append(codebook.get(codebook.size() - 1) + "]");
+        builderCodebook.append(codebook.get(codebook.size() - 1)).append("]");
         builderOutput.append(output.get(output.size() - 1));
         lblResult.setText(builderOutput.toString());
         lblCodebook.setText(builderCodebook.toString());
     }
 
-    public void showString(String string){
+    void showString(String string){
         lblResult.setText(string);
     }
 
-    public void setProgress(int percent) {
+    void setProgress(int percent) {
         progressBar1.setValue(percent);
     }
 }

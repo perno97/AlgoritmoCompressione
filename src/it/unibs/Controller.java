@@ -3,14 +3,14 @@ package it.unibs;
 import java.util.ArrayList;
 
 public class Controller implements Runnable, ProgressListener{
-    public static final boolean ENCODE = true;
-    public static final boolean DECODE = false;
+    static final boolean ENCODE = true;
+    static final boolean DECODE = false;
     private static final String NOT_INTEGER_ERROR = "Uno o piu' numeri inseriti non sono interi";
 
     private LZCompress compressLZ;
     private MainForm form;
 
-    public Controller(){
+    Controller(){
         createLZCompress();
     }
 
@@ -51,7 +51,7 @@ public class Controller implements Runnable, ProgressListener{
         compressLZ.addProgressListener(this);
     }
 
-    public void execute(String text, boolean command) {
+    void execute(String text, boolean command) {
         if (command == ENCODE) {
             encode(text);
         } else {
