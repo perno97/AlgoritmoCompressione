@@ -1,4 +1,4 @@
-package it.unibs;
+package it.unibs.compress;
 
 import java.util.ArrayList;
 
