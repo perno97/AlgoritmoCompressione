@@ -80,7 +80,7 @@ public class LZCompress implements ICompress {
 
             output.append(codebook.get(index));//metto in uscita la conversione dell'input attuale
 
-            //se il codebook non contiene il simbolo buffer + inputattuale questo viene aggiunto
+            //se il codebook non contiene il simbolo buffer + carattere iniziale input attuale questo viene aggiunto
             if (!codebook.contains(buffer.toString() + codebook.get(index).charAt(0)))
                 codebook.add(buffer.toString() + codebook.get(index).charAt(0));
 
